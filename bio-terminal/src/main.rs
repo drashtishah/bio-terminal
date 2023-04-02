@@ -25,7 +25,6 @@ fn main() {
         if input == "exit" {
             break;
         } else if input == "Y" {
-            println!("{}", "Select the problem you want to solve.");
             print_challenges();
             print!("Enter a number: ");
             io::stdout().flush().expect("Error flushing stdout");
