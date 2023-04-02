@@ -13,6 +13,7 @@ The project is inspired by problems found on the Rosalind platform and aims to p
 
 To start using Bio-Terminal, clone the repository from GitHub and navigate to the project directory.
 
+```bash
 cd bio-terminal
 cargo build
 cargo run
