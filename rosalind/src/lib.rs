@@ -3,7 +3,8 @@ use std::collections::HashMap;
 #[derive(Debug)]
 pub enum FunctionResult {
     NucleotideCount(HashMap<char, usize>),
-    TranscribedDna(String),
+    TranscribedDNA(String),
+    ReverseComplement(String),
 }
 
 pub fn count_nucleotides(dna: &str) -> FunctionResult {
@@ -16,7 +17,21 @@ pub fn count_nucleotides(dna: &str) -> FunctionResult {
 
 pub fn transcribe_dna(dna: &str) -> FunctionResult {
     let rna = dna.replace("T", "U");
-    FunctionResult::TranscribedDna(rna)
+    FunctionResult::TranscribedDNA(rna)
+}
+
+pub fn reverse_complement(dna: &str) -> FunctionResult {
+    let reverse_complement = dna.chars()
+                                .rev()
+                                .map(|c| match c {
+                                    'A' => 'T',
+                                    'T' => 'A',
+                                    'C' => 'G',
+                                    'G' => 'C',
+                                    _ => panic!("Invalid character in DNA sequence"),
+                                })
+                                .collect();
+    FunctionResult::ReverseComplement(reverse_complement)
 }
 
 #[cfg(test)]
@@ -41,8 +56,20 @@ mod tests {
         let expected_result = "GAUGGAACUUGACUACGUAAAUU";
         let actual_result = transcribe_dna("GATGGAACTTGACTACGTAAATT");
     
-        if let FunctionResult::TranscribedDna(actual_rna) = actual_result {
+        if let FunctionResult::TranscribedDNA(actual_rna) = actual_result {
             assert_eq!(actual_rna, expected_result);
+        } else {
+            panic!("Unexpected function result");
+        }
+    }
+
+    #[test]
+    fn reverse_complement_test() {
+        let expected_result = "ACCGGGTTTT";
+        let actual_result = reverse_complement("AAAACCCGGT");
+    
+        if let FunctionResult::ReverseComplement(actual_dna) = actual_result {
+            assert_eq!(actual_dna, expected_result);
         } else {
             panic!("Unexpected function result");
         }
