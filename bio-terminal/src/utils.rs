@@ -10,6 +10,13 @@ pub fn print_challenges() {
     println!("{}", "3. Complementing a Strand of DNA");
 }
 
+pub fn print_commands() {
+    println!("rosalind -> solve Rosalind challenges");
+    println!("acoustics -> access data & tools for bioacoustics");
+    println!("exit -> exit the terminal");
+    println!("help -> show this command list again");
+}
+
 pub fn function_map() -> HashMap<i32, fn(&str) -> FunctionResult> {
     let mut function_map: HashMap<i32, fn(&str) -> FunctionResult> = HashMap::new();
     function_map.insert(1, count_nucleotides);

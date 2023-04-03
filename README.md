@@ -5,7 +5,6 @@ Bio-Terminal is a Rust library designed for analyzing biological data, specifica
 - Counting nucleotide occurrences
 - Transcribing DNA to RNA
 - Calculating the reverse complement of a DNA sequence
-- Calculating the GC content of DNA sequences
 
 The project is inspired by problems found on the Rosalind platform and aims to provide a comprehensive toolset for tackling common challenges in the field of bioinformatics.
 
@@ -15,5 +14,4 @@ To start using Bio-Terminal, clone the repository from GitHub and navigate to th
 
 ```bash
 cd bio-terminal
-cargo build
 cargo run

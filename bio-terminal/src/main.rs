@@ -1,17 +1,20 @@
 pub mod utils;
 use std::io::{self, Write};
-use utils::{print_challenges, function_map};
+use utils::{print_challenges, function_map, print_commands};
 
 fn main() {
     let mut x = 0;
     let solutions = function_map();
     let mut input_list = Vec::new();
-    let welcome_message: &str = "\nThis is your bio-terminal. You can analyse biological data here.\nWould you like to start by solving challenges on Rosalind? Please enter yes to start.\nYou can type exit to close the bio-terminal.";
+    let welcome_message: &str = "\nThis is your bio-terminal. You can analyse biological data here.";
 
     loop {
         if x == 0 {
             // Print the welcome message only once
             println!("{}", welcome_message);
+            println!("This a list of commands you can use to navigate the terminal.\n");
+            print_commands();
+            println!("");
             x = x + 1;
         }
 
@@ -24,23 +27,27 @@ fn main() {
 
         if input == "exit" {
             break;
-        } else if input == "yes" {
+        } else if input == "rosalind" {
             println!("\nPlease select the challenge you want to solve.");
             print_challenges();
             print!("\nEnter a number: ");
             io::stdout().flush().expect("Error flushing stdout");
             let temp_input = input.clone();
             input_list.push(temp_input);
-        } else if input == "no" {
-            println!("{}", "Bio-Terminal is a work-in-progress. You can only solve Rosalind challenges right now.");
-            break;
+        } else if input == "acoustics" {
+            println!("Select a function from this list to analyze bioacoustics data.");
+        } else if input == "help" {
+            println!("\nHere is the list of commands you can use to navigate the terminal.");
+            print_commands();
+            println!("");
         } else if num == 0 {
             // Any other text input
             println!("Please check your input.");
+            println!("");
         }
 
-        let yes: String = "yes".to_string();
-        if num > 0 && input_list.contains(&yes) {
+        let rosalind: String = "rosalind".to_string();
+        if num > 0 && input_list.contains(&rosalind) {
             if let Some(func) = solutions.get(&num) {
                 print!("Enter the input sequence: ");
                 io::stdout().flush().expect("Error flushing stdout");
@@ -54,18 +61,19 @@ fn main() {
                 println!("Your solution for question {} -> {:?}\n", num, result);
                 println!("Please select the next challenge you want to solve.");
                 print_challenges();
-                print!("\nEnter a number: ");
+                print!("\nEnter a number or a command: ");
                 io::stdout().flush().expect("Error flushing stdout");
             }  else {
                 println!("This challenge does not seem to be in the list.");
                 println!("\nPlease select one of the challenges given below.");
                 print_challenges();
-                print!("\nEnter a number: ");
+                print!("\nEnter a number or a command: ");
                 io::stdout().flush().expect("Error flushing stdout");
             }
         } else if num > 0 {
             // For numeric inputs typed in before a "Y"
             println!("Please check your input.");
+            println!("");
         }
 }
 }
