@@ -1,11 +1,7 @@
-use std::collections::HashMap;
+pub mod utils;
 
-#[derive(Debug)]
-pub enum FunctionResult {
-    NucleotideCount(HashMap<char, usize>),
-    TranscribedDNA(String),
-    ReverseComplement(String),
-}
+use std::collections::HashMap;
+use utils::{FunctionResult, codon_table};
 
 pub fn count_nucleotides(dna: &str) -> FunctionResult {
     let mut counts = HashMap::new();
@@ -13,6 +9,20 @@ pub fn count_nucleotides(dna: &str) -> FunctionResult {
         *counts.entry(c).or_insert(0) += 1;
     }
     FunctionResult::NucleotideCount(counts)
+}
+
+pub fn translate_rna(rna: &str) -> FunctionResult {
+    let protein = rna.as_bytes()
+                .chunks(3)
+                .filter_map(|chunk| {
+                    let codon = std::str::from_utf8(chunk).unwrap();
+                    match codon_table().get(codon) {
+                        Some(&amino_acid) if amino_acid != '*' => Some(amino_acid),
+                        _ => None,
+                    }
+                })
+                .collect();
+    FunctionResult::TranslatedRNA(protein)
 }
 
 pub fn transcribe_dna(dna: &str) -> FunctionResult {
@@ -70,6 +80,18 @@ mod tests {
     
         if let FunctionResult::ReverseComplement(actual_dna) = actual_result {
             assert_eq!(actual_dna, expected_result);
+        } else {
+            panic!("Unexpected function result");
+        }
+    }
+
+    #[test]
+    fn translate_rna_test() {
+        let expected_result = "MAMAPRTEINSTRING";
+        let actual_result = translate_rna("AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA");
+    
+        if let FunctionResult::TranslatedRNA(actual_protein) = actual_result {
+            assert_eq!(actual_protein, expected_result);
         } else {
             panic!("Unexpected function result");
         }

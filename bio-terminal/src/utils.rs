@@ -1,13 +1,16 @@
 use std::collections::HashMap;
 use rosalind::{count_nucleotides, 
                 transcribe_dna, 
-                reverse_complement, 
-                FunctionResult};
+                reverse_complement,
+                translate_rna,
+                utils::FunctionResult,
+            };
 
 pub fn print_challenges() {
     println!("{}", "1. Counting DNA Nucleotides");
     println!("{}", "2. Transcribing DNA into RNA");
     println!("{}", "3. Complementing a Strand of DNA");
+    println!("{}", "4. Translating RNA into Protein");
 }
 
 pub fn print_commands() {
@@ -22,5 +25,6 @@ pub fn function_map() -> HashMap<i32, fn(&str) -> FunctionResult> {
     function_map.insert(1, count_nucleotides);
     function_map.insert(2, transcribe_dna);
     function_map.insert(3, reverse_complement);
+    function_map.insert(4, translate_rna);
     function_map
 }
