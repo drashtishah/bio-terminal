@@ -3,6 +3,7 @@ use rosalind::{count_nucleotides,
                 transcribe_dna, 
                 reverse_complement,
                 translate_rna,
+                protein_mass,
                 utils::FunctionResult,
             };
 
@@ -11,6 +12,7 @@ pub fn print_challenges() {
     println!("{}", "2. Transcribing DNA into RNA");
     println!("{}", "3. Complementing a Strand of DNA");
     println!("{}", "4. Translating RNA into Protein");
+    println!("{}", "5. Calculating Protein Mass");
 }
 
 pub fn print_commands() {
@@ -26,5 +28,6 @@ pub fn function_map() -> HashMap<i32, fn(&str) -> FunctionResult> {
     function_map.insert(2, transcribe_dna);
     function_map.insert(3, reverse_complement);
     function_map.insert(4, translate_rna);
+    function_map.insert(5, protein_mass);
     function_map
 }

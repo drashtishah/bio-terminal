@@ -1,7 +1,10 @@
 pub mod utils;
 
 use std::collections::HashMap;
-use utils::{FunctionResult, codon_table};
+use utils::{FunctionResult, 
+            codon_table, 
+            monoisotopic_mass_table, 
+            round_to_decimal_places};
 
 pub fn count_nucleotides(dna: &str) -> FunctionResult {
     let mut counts = HashMap::new();
@@ -28,6 +31,14 @@ pub fn translate_rna(rna: &str) -> FunctionResult {
 pub fn transcribe_dna(dna: &str) -> FunctionResult {
     let rna = dna.replace("T", "U");
     FunctionResult::TranscribedDNA(rna)
+}
+
+pub fn protein_mass(protein: &str) -> FunctionResult {
+    let mut mass = protein.chars()
+                            .map(|x| monoisotopic_mass_table()[&x])
+                            .sum::<f64>();
+    mass = round_to_decimal_places(mass, 3);
+    FunctionResult::ProteinMass(mass)
 }
 
 pub fn reverse_complement(dna: &str) -> FunctionResult {
@@ -92,6 +103,18 @@ mod tests {
     
         if let FunctionResult::TranslatedRNA(actual_protein) = actual_result {
             assert_eq!(actual_protein, expected_result);
+        } else {
+            panic!("Unexpected function result");
+        }
+    }
+
+    #[test]
+    fn protein_mass_test() {
+        let expected_result = 821.392;
+        let actual_result = protein_mass("SKADYEK");
+    
+        if let FunctionResult::ProteinMass(actual_mass) = actual_result {
+            assert_eq!(actual_mass, expected_result);
         } else {
             panic!("Unexpected function result");
         }

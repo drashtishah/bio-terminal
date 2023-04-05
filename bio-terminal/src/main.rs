@@ -30,7 +30,7 @@ fn main() {
         } else if input == "rosalind" {
             println!("\nPlease select the challenge you want to solve.");
             print_challenges();
-            print!("\nEnter a number: ");
+            print!("\nEnter a number or a command: ");
             io::stdout().flush().expect("Error flushing stdout");
             let temp_input = input.clone();
             input_list.push(temp_input);
