@@ -7,6 +7,7 @@ use rosalind::{count_nucleotides,
                 utils::FunctionResult,
             };
 
+/// Prints the available Rosalind challenges.
 pub fn print_challenges() {
     println!("{}", "1. Counting DNA Nucleotides");
     println!("{}", "2. Transcribing DNA into RNA");
@@ -15,6 +16,7 @@ pub fn print_challenges() {
     println!("{}", "5. Calculating Protein Mass");
 }
 
+/// Prints the available commands for the command line application.
 pub fn print_commands() {
     println!("rosalind -> solve Rosalind challenges");
     println!("acoustics -> access data & tools for bioacoustics");

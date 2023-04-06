@@ -6,6 +6,8 @@ use utils::{FunctionResult,
             monoisotopic_mass_table, 
             round_to_decimal_places};
 
+/// Counts the occurrences of each nucleotide in a DNA string.
+/// Returns a FunctionResult::NucleotideCount variant containing a HashMap of nucleotide counts.           
 pub fn count_nucleotides(dna: &str) -> FunctionResult {
     let mut counts = HashMap::new();
     for c in dna.chars() {
@@ -14,6 +16,8 @@ pub fn count_nucleotides(dna: &str) -> FunctionResult {
     FunctionResult::NucleotideCount(counts)
 }
 
+/// Translates an RNA string into a protein string.
+/// Returns a FunctionResult::TranslatedRNA variant containing the translated protein string.
 pub fn translate_rna(rna: &str) -> FunctionResult {
     let protein = rna.as_bytes()
                 .chunks(3)
@@ -28,11 +32,15 @@ pub fn translate_rna(rna: &str) -> FunctionResult {
     FunctionResult::TranslatedRNA(protein)
 }
 
+/// Transcribes a DNA string into an RNA string.
+/// Returns a FunctionResult::TranscribedDNA variant containing the transcribed RNA string.
 pub fn transcribe_dna(dna: &str) -> FunctionResult {
     let rna = dna.replace("T", "U");
     FunctionResult::TranscribedDNA(rna)
 }
 
+/// Calculates the mass of a protein string.
+/// Returns a FunctionResult::ProteinMass variant containing the protein mass as a floating-point number.
 pub fn protein_mass(protein: &str) -> FunctionResult {
     let mut mass = protein.chars()
                             .map(|x| monoisotopic_mass_table()[&x])
@@ -41,6 +49,8 @@ pub fn protein_mass(protein: &str) -> FunctionResult {
     FunctionResult::ProteinMass(mass)
 }
 
+/// Computes the reverse complement of a DNA string.
+/// Returns a FunctionResult::ReverseComplement variant containing the reverse complement of the input DNA string.
 pub fn reverse_complement(dna: &str) -> FunctionResult {
     let reverse_complement = dna.chars()
                                 .rev()
@@ -55,6 +65,7 @@ pub fn reverse_complement(dna: &str) -> FunctionResult {
     FunctionResult::ReverseComplement(reverse_complement)
 }
 
+// Test module containing tests for each function
 #[cfg(test)]
 mod tests {
     use super::*;
