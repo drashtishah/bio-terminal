@@ -1,11 +1,8 @@
+use rosalind::{
+    count_nucleotides, protein_mass, reverse_complement, transcribe_dna, translate_rna,
+    utils::FunctionResult,
+};
 use std::collections::HashMap;
-use rosalind::{count_nucleotides, 
-                transcribe_dna, 
-                reverse_complement,
-                translate_rna,
-                protein_mass,
-                utils::FunctionResult,
-            };
 
 /// Prints the available Rosalind challenges.
 pub fn print_challenges() {

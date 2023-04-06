@@ -1,12 +1,13 @@
 pub mod utils;
 use std::io::{self, Write};
-use utils::{print_challenges, function_map, print_commands};
+use utils::{function_map, print_challenges, print_commands};
 
 fn main() {
     let mut x = 0;
     let solutions = function_map();
     let mut input_list = Vec::new();
-    let welcome_message: &str = "\nThis is your bio-terminal. You can analyse biological data here.";
+    let welcome_message: &str =
+        "\nThis is your bio-terminal. You can analyse biological data here.";
 
     loop {
         if x == 0 {
@@ -53,17 +54,19 @@ fn main() {
                 io::stdout().flush().expect("Error flushing stdout");
                 input = "".to_string();
                 io::stdin()
-                .read_line(&mut input)
-                .expect("There was an error while reading your input data.");
+                    .read_line(&mut input)
+                    .expect("There was an error while reading your input data.");
                 input = input.trim().to_string();
-                if input == "exit" {break;}
+                if input == "exit" {
+                    break;
+                }
                 let result = func(&input);
                 println!("Your solution for question {} -> {:?}\n", num, result);
                 println!("Please select the next challenge you want to solve.");
                 print_challenges();
                 print!("\nEnter a number or a command: ");
                 io::stdout().flush().expect("Error flushing stdout");
-            }  else {
+            } else {
                 println!("This challenge does not seem to be in the list.");
                 println!("\nPlease select one of the challenges given below.");
                 print_challenges();
@@ -75,5 +78,5 @@ fn main() {
             println!("Please check your input.");
             println!("");
         }
-}
+    }
 }
