@@ -7,6 +7,27 @@ pub enum FunctionResult {
     ReverseComplement(String),
     TranslatedRNA(String),
     ProteinMass(f64),
+    HammingDistance(usize),
+}
+
+pub enum RosalindInputType {
+    OneSequence(String),
+    TwoSequence([String; 2])
+}
+
+impl RosalindInputType {
+    pub fn unwrap_sequence(&self) -> String {
+        match self {
+            RosalindInputType::OneSequence(t) => t.to_string(),
+            _ => panic!("Called `RosalindInputType::unwrap_sequence()` on an invalid input"),
+        }
+    }
+    pub fn unwrap_sequence_list(&self) -> [String; 2] {
+        match self {
+            RosalindInputType::TwoSequence(t) => t.clone(),
+            _ => panic!("Called `RosalindInputType::unwrap_sequence_list()` on an invalid input"),
+        }
+    }
 }
 
 pub fn codon_table() -> HashMap<&'static str, char> {

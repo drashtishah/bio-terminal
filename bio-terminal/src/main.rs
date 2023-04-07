@@ -1,6 +1,6 @@
 pub mod utils;
 use std::io::{self, Write};
-use utils::{function_map, print_challenges, print_commands};
+use utils::{function_map, print_challenges, print_commands, RosalindInput, one_sequence_input, two_sequence_input};
 
 fn main() {
     let mut x = 0;
@@ -49,18 +49,26 @@ fn main() {
 
         let rosalind: String = "rosalind".to_string();
         if num > 0 && input_list.contains(&rosalind) {
+            let input_type = match num {
+                    1 => RosalindInput::One,
+                    2 => RosalindInput::Two,
+                    3 => RosalindInput::Three,
+                    4 => RosalindInput::Four,
+                    5 => RosalindInput::Five,
+                    6 => RosalindInput::Six,
+                    _ => continue
+            };
+
+            let rosalind_input = match input_type {
+               RosalindInput::Six => two_sequence_input(),
+               _ => one_sequence_input("Enter the input sequence: ")
+            };
+
             if let Some(func) = solutions.get(&num) {
-                print!("Enter the input sequence: ");
-                io::stdout().flush().expect("Error flushing stdout");
-                input = "".to_string();
-                io::stdin()
-                    .read_line(&mut input)
-                    .expect("There was an error while reading your input data.");
-                input = input.trim().to_string();
                 if input == "exit" {
                     break;
                 }
-                let result = func(&input);
+                let result = func(rosalind_input);
                 println!("Your solution for question {} -> {:?}\n", num, result);
                 println!("Please select the next challenge you want to solve.");
                 print_challenges();
