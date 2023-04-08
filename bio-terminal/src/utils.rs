@@ -1,7 +1,8 @@
 use std::io::{self, Write};
 
 use rosalind::{
-    count_nucleotides, protein_mass, reverse_complement, transcribe_dna, translate_rna, hamming_distance,
+    count_nucleotides, find_motif, hamming_distance, protein_mass, reverse_complement,
+    transcribe_dna, translate_rna,
     utils::{FunctionResult, RosalindInputType},
 };
 use std::collections::HashMap;
@@ -12,7 +13,8 @@ pub enum RosalindInput {
     Three,
     Four,
     Five,
-    Six
+    Six,
+    Seven,
 }
 
 pub fn one_sequence_input(msg: &str) -> RosalindInputType {
@@ -27,10 +29,17 @@ pub fn one_sequence_input(msg: &str) -> RosalindInputType {
 }
 
 pub fn two_sequence_input() -> RosalindInputType {
-   let mut seq_array = ["Error".to_string(), "Error".to_string()];
-   seq_array[0] =  one_sequence_input("Enter the first sequence: ").unwrap_sequence();
-   seq_array[1] =  one_sequence_input("Enter the second sequence: ").unwrap_sequence();
-   RosalindInputType::TwoSequence(seq_array)
+    let mut seq_array = ["Error".to_string(), "Error".to_string()];
+    seq_array[0] = one_sequence_input("Enter the first sequence: ").unwrap_sequence();
+    seq_array[1] = one_sequence_input("Enter the second sequence: ").unwrap_sequence();
+    RosalindInputType::TwoSequence(seq_array)
+}
+
+pub fn two_sequence_input_v2() -> RosalindInputType {
+    let mut seq_array = ["Error".to_string(), "Error".to_string()];
+    seq_array[0] = one_sequence_input("Enter the DNA sequence: ").unwrap_sequence();
+    seq_array[1] = one_sequence_input("Enter the motif you want to find: ").unwrap_sequence();
+    RosalindInputType::TwoSequence(seq_array)
 }
 
 /// Prints the available Rosalind challenges.
@@ -41,6 +50,7 @@ pub fn print_challenges() {
     println!("{}", "4. Translating RNA into Protein");
     println!("{}", "5. Calculating Protein Mass");
     println!("{}", "6. Counting Point Mutations");
+    println!("{}", "7. Finding a Motif in DNA");
 }
 
 /// Prints the available commands for the command line application.
@@ -59,5 +69,6 @@ pub fn function_map() -> HashMap<i32, fn(RosalindInputType) -> FunctionResult> {
     function_map.insert(4, translate_rna);
     function_map.insert(5, protein_mass);
     function_map.insert(6, hamming_distance);
+    function_map.insert(7, find_motif);
     function_map
 }

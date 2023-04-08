@@ -8,11 +8,12 @@ pub enum FunctionResult {
     TranslatedRNA(String),
     ProteinMass(f64),
     HammingDistance(usize),
+    MotifStartingLocations(Vec<usize>),
 }
 
 pub enum RosalindInputType {
     OneSequence(String),
-    TwoSequence([String; 2])
+    TwoSequence([String; 2]),
 }
 
 impl RosalindInputType {

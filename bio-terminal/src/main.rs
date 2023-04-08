@@ -1,6 +1,9 @@
 pub mod utils;
 use std::io::{self, Write};
-use utils::{function_map, print_challenges, print_commands, RosalindInput, one_sequence_input, two_sequence_input};
+use utils::{
+    function_map, one_sequence_input, print_challenges, print_commands, two_sequence_input,
+    two_sequence_input_v2, RosalindInput,
+};
 
 fn main() {
     let mut x = 0;
@@ -50,18 +53,20 @@ fn main() {
         let rosalind: String = "rosalind".to_string();
         if num > 0 && input_list.contains(&rosalind) {
             let input_type = match num {
-                    1 => RosalindInput::One,
-                    2 => RosalindInput::Two,
-                    3 => RosalindInput::Three,
-                    4 => RosalindInput::Four,
-                    5 => RosalindInput::Five,
-                    6 => RosalindInput::Six,
-                    _ => continue
+                1 => RosalindInput::One,
+                2 => RosalindInput::Two,
+                3 => RosalindInput::Three,
+                4 => RosalindInput::Four,
+                5 => RosalindInput::Five,
+                6 => RosalindInput::Six,
+                7 => RosalindInput::Seven,
+                _ => continue,
             };
 
             let rosalind_input = match input_type {
-               RosalindInput::Six => two_sequence_input(),
-               _ => one_sequence_input("Enter the input sequence: ")
+                RosalindInput::Six => two_sequence_input(),
+                RosalindInput::Seven => two_sequence_input_v2(),
+                _ => one_sequence_input("Enter the input sequence: "),
             };
 
             if let Some(func) = solutions.get(&num) {
