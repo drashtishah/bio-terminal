@@ -3,4 +3,5 @@ members = [
     "rosalind",
     "bio-terminal",
     "acoustics",
+    "dataframe",
 ]

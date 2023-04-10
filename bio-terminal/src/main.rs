@@ -1,5 +1,7 @@
 pub mod utils;
+
 use std::io::{self, Write};
+use dataframe::utils::fasta_to_dataframe;
 use utils::{
     function_map, one_sequence_input, print_challenges, print_commands, two_sequence_input,
     two_sequence_input_v2, RosalindInput,
