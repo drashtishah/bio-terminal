@@ -9,6 +9,7 @@ pub enum FunctionResult {
     ProteinMass(f64),
     HammingDistance(usize),
     MotifStartingLocations(Vec<usize>),
+    GCContent(HashMap<String, f64>),
 }
 
 pub enum RosalindInputType {

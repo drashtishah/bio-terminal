@@ -1,10 +1,9 @@
 pub mod utils;
 
 use std::io::{self, Write};
-use dataframe::utils::fasta_to_dataframe;
 use utils::{
     function_map, one_sequence_input, print_challenges, print_commands, two_sequence_input,
-    two_sequence_input_v2, RosalindInput,
+    two_sequence_input_v2, RosalindInput, filename_input,
 };
 
 fn main() {
@@ -40,8 +39,6 @@ fn main() {
             io::stdout().flush().expect("Error flushing stdout");
             let temp_input = input.clone();
             input_list.push(temp_input);
-        } else if input == "acoustics" {
-            println!("Select a function from this list to analyze bioacoustics data.");
         } else if input == "help" {
             println!("\nHere is the list of commands you can use to navigate the terminal.");
             print_commands();
@@ -62,12 +59,14 @@ fn main() {
                 5 => RosalindInput::Five,
                 6 => RosalindInput::Six,
                 7 => RosalindInput::Seven,
+                8 => RosalindInput::Eight,
                 _ => continue,
             };
 
             let rosalind_input = match input_type {
                 RosalindInput::Six => two_sequence_input(),
                 RosalindInput::Seven => two_sequence_input_v2(),
+                RosalindInput::Eight => filename_input(),
                 _ => one_sequence_input("Enter the input sequence: "),
             };
 

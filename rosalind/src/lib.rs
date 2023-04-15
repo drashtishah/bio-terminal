@@ -1,10 +1,18 @@
 pub mod utils;
 
+use polars::prelude::*;
 use std::collections::HashMap;
+use dataframe::utils::fasta_to_dataframe;
 use utils::{
     codon_table, monoisotopic_mass_table, round_to_decimal_places, FunctionResult,
     RosalindInputType,
 };
+
+pub fn gc_content(sequence: &str) -> f64 {
+    let total_bases = sequence.len() as f64;
+    let gc_count = sequence.chars().filter(|&c| c == 'G' || c == 'C').count() as f64;
+    (gc_count / total_bases) * 100.0
+}
 
 /// Counts the occurrences of each nucleotide in a DNA string.
 /// Returns a FunctionResult::NucleotideCount variant containing a HashMap of nucleotide counts.           

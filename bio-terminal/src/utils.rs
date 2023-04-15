@@ -15,6 +15,7 @@ pub enum RosalindInput {
     Five,
     Six,
     Seven,
+    Eight,
 }
 
 pub fn one_sequence_input(msg: &str) -> RosalindInputType {
@@ -25,6 +26,11 @@ pub fn one_sequence_input(msg: &str) -> RosalindInputType {
         .read_line(&mut input)
         .expect("There was an error while reading your input data.");
     input = input.trim().to_string();
+    RosalindInputType::OneSequence(input)
+}
+
+pub fn filename_input() -> RosalindInputType {
+    let input = one_sequence_input("Enter the path to your FASTA file: ").unwrap_sequence();
     RosalindInputType::OneSequence(input)
 }
 
@@ -51,12 +57,12 @@ pub fn print_challenges() {
     println!("{}", "5. Calculating Protein Mass");
     println!("{}", "6. Counting Point Mutations");
     println!("{}", "7. Finding a Motif in DNA");
+    println!("{}", "8. Computing GC Content");
 }
 
 /// Prints the available commands for the command line application.
 pub fn print_commands() {
     println!("rosalind -> solve Rosalind challenges");
-    println!("acoustics -> access data & tools for bioacoustics");
     println!("exit -> exit the terminal");
     println!("help -> show this command list again");
 }
